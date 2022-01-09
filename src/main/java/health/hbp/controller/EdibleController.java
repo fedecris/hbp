@@ -26,7 +26,10 @@ public class EdibleController {
     @GetMapping({"/edibles/edit", "/edibles/edit/{id}"})
     public String addEdible(Model model, @PathVariable("id") Optional<String> id) {
         if (id.isPresent()) {
-            repository.findById(id.get()).ifPresent(edible -> model.addAttribute("edible", edible));
+            repository.findById(id.get()).ifPresent(
+                    edible -> {
+                        model.addAttribute("edible", edible);
+                    });
         } else {
             model.addAttribute("edible", new Edible());
         }

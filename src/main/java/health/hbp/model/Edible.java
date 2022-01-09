@@ -1,16 +1,15 @@
 package health.hbp.model;
 
+/**
+ * fit or suitable to be eaten.
+ */
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-
 import javax.validation.constraints.NotNull;
-
-import java.util.Map;
+import javax.validation.constraints.Null;
 
 @Document(collection = "edibles")
 @Getter
@@ -23,9 +22,8 @@ public class Edible {
     private String name;
     @NotNull
     private Double portion;
-//    @Field
-//    private Map<String, Double> attributes;
-
+    @Null
+    private Facts facts;
 
     public Edible() {
     }
@@ -35,4 +33,9 @@ public class Edible {
         this.portion = portion;
     }
 
+    public Edible(String name, Double portion, Facts fact) {
+        this.name = name;
+        this.portion = portion;
+        this.facts = facts;
+    }
 }
