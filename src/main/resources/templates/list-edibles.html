@@ -14,15 +14,16 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Portion (grams/ml)</th>
+                <th>Sodium (%)</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="edible : ${edibles}">
                 <td th:text="${edible.name}"></td>
-                <td th:text="${edible.portion}"></td>
-                <td><a th:href="@{/edibles/edit/{id}(id=${edible.id})}" class="btn btn-primary">Edit</a></td>
-                <td><a th:href="@{/edibles/delete/{id}(id=${edible.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+                <td th:text="${edible.saturationSodium}"></td>
+                <td><a th:href="@{/edibles/edit/{id}(id=${edible.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/edibles/delete/{id}(id=${edible.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
             </tr>
             </tbody>
         </table>
