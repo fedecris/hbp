@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
 @Controller
@@ -19,7 +19,7 @@ public class EdibleController {
 
     @GetMapping("/edibles")
     public String getAllEdibles(Model model) {
-        model.addAttribute("edibles", repository.findAll());
+        model.addAttribute("edibles", repository.findAll(Sort.by(Sort.Direction.ASC, "name")));
         return "list-edibles";
     }
 
