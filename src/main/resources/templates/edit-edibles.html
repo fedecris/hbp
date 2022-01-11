@@ -19,17 +19,20 @@
                             <input type="text" th:field="*{name}" id="name" placeholder="Name" class="form-control" />
                         </div>
                         <div class="form-group col-md-8">
+                            <label for="brand" class="col-form-label">Brand</label>
+                            <input type="text" th:field="*{brand}" id="brand" placeholder="Brand" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-8">
                             <label for="upc" class="col-form-label">UPC/EAN</label>
                             <input type="text" th:field="*{upc}" id="upc" placeholder="Product Code" class="form-control" />
                         </div>
 
                         <div class="form-group col-md-8">
-                            <label for="portion" class="col-form-label">Portion (grams/ml)</label>
-                            <input type="number" th:field="*{portion}" id="portion" placeholder="Portion specified in grams or ml" class="form-control" />
-                        </div>
-
-                        <div class="form-group col-md-8">
                             <label class="col-form-label"><b>Nutrition facts</b></label>
+                            <div class="form-group col-md-8">
+                                <label for="portion" class="col-form-label">Portion (grams/ml)</label>
+                                <input type="number" th:field="*{facts.portion}" id="portion" placeholder="Portion specified in grams or ml" class="form-control" />
+                            </div>
                             <div class="form-group col-md-8">
                                 <label for="facts.sodium" class="col-form-label">Sodium (mg)</label>
                                 <input type="number" th:field="*{facts.sodium}" id="facts.sodium" placeholder="Sodium in mg" class="form-control" />

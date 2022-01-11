@@ -14,7 +14,7 @@ public interface EdibleMapper {
     default void calculateSaturation(Edible edible, @MappingTarget EdibleDTO edibleDTO) {
         Double saturation = null;
         try {
-            Double portion = edible.getPortion();
+            Double portion = edible.getFacts().getPortion();
             Double sodium = edible.getFacts().getSodium();
             saturation = Math.floor(sodium / portion * 10) / 100;
         } catch (Exception e) { /* Some value was not loaded */}

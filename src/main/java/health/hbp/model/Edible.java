@@ -20,24 +20,22 @@ public class Edible {
     private String id;
     @NotNull
     private String name;
-    @NotNull
-    private Double portion;
     @Null
-    private Facts facts;
+    private String brand;
     @Null
     private String upc;
+    @Null
+    private Facts facts;
 
     public Edible() {
     }
 
-    public Edible(String name, Double portion) {
+    public Edible(String name) {
         this.name = name;
-        this.portion = portion;
     }
 
-    public Edible(String name, Double portion, Facts fact) {
+    public Edible(String name, Facts facts) {
         this.name = name;
-        this.portion = portion;
         this.facts = facts;
     }
 }

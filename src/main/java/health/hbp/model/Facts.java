@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class Facts {
 
+    Double portion;
     Double sodium;
     Double potassium;
 
