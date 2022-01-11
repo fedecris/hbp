@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class EdibleController {
     private EdibleMapper mapper;
 
     @GetMapping("/edibles")
-    public String getAllEdibles(Model model) {
-        List<Edible> edibles = repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    public String getAllEdibles(Model model, @RequestParam(value = "sort", defaultValue = "name", required=false) String sort ) {
+        List<Edible> edibles = repository.findAll(Sort.by(Sort.Direction.ASC, sort));
         List<EdibleDTO> edibleDTOs = new ArrayList<>();
         edibles.forEach(edible -> edibleDTOs.add(mapper.edibleToEdibleDTO(edible)));
         model.addAttribute("edibles", edibleDTOs);
