@@ -2,16 +2,12 @@ package health.hbp.mapper;
 
 import health.hbp.dto.EdibleDTO;
 import health.hbp.model.Edible;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EdibleMapper {
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
+    // variables with same name (line name or upc) are automatically mapped
     EdibleDTO edibleToEdibleDTO(Edible edible);
 
     @AfterMapping
@@ -20,8 +16,7 @@ public interface EdibleMapper {
         try {
             Double portion = edible.getPortion();
             Double sodium = edible.getFacts().getSodium();
-            saturation = sodium / portion / 10;  // sodium (mg) / 1000 / portion (g) * 100 (percentage)
-            saturation = Math.floor(saturation * 100) / 100; // 2 decimal places
+            saturation = Math.floor(sodium / portion * 10) / 100;
         } catch (Exception e) { /* Some value was not loaded */}
         edibleDTO.setSaturationSodium(saturation);
     }

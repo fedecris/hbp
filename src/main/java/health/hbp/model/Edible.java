@@ -24,6 +24,8 @@ public class Edible {
     private Double portion;
     @Null
     private Facts facts;
+    @Null
+    private String upc;
 
     public Edible() {
     }

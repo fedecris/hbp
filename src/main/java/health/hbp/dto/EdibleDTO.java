@@ -11,6 +11,8 @@ public class EdibleDTO {
     private String id;
     /** entity name */
     private String name;
+    /** entity upc or ean*/
+    private String upc;
     /** Saturation (%) */
     private Double saturationSodium;
 }
