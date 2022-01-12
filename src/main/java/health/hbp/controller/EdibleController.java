@@ -28,8 +28,10 @@ public class EdibleController {
     private EdibleMapper mapper;
 
     @GetMapping("/edibles")
-    public String getAllEdibles(Model model, @RequestParam(value = "sort", defaultValue = "name", required=false) String sort ) {
-        List<Edible> edibles = repository.findAll(Sort.by(Sort.Direction.ASC, sort));
+    public String getAllEdibles(Model model,
+                                @RequestParam(value = "sort", defaultValue = "name", required=false) String sort,
+                                @RequestParam(value = "dir",  defaultValue = "asc",  required=false) String dir ) {
+        List<Edible> edibles = repository.findAll(Sort.by("asc".equals(dir)?Sort.Direction.ASC:Sort.Direction.DESC, sort));
         List<EdibleDTO> edibleDTOs = new ArrayList<>();
         edibles.forEach(edible -> edibleDTOs.add(mapper.edibleToEdibleDTO(edible)));
         model.addAttribute("edibles", edibleDTOs);
