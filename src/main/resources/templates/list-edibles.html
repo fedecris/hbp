@@ -6,6 +6,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
+<script>
+    function findByName(field, criteria) {
+        if(event.keyCode == 13) {
+            location = "edibles/find/"+field+"/"+criteria;
+        }
+    }
+</script>
 <div th:switch="${edibles}">
     <h2 th:case="null">No edibles yet!</h2>
     <div th:case="*">
@@ -13,11 +20,29 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name<a class="btn" href="edibles?sort=name&dir=asc">&#x25B2;</a><a class="btn" href="edibles?sort=name&dir=desc">&#x25BC;</a></th>
-                <th>Brand<a class="btn" href="edibles?sort=brand&dir=asc">&#x25B2;</a><a class="btn" href="edibles?sort=brand&dir=desc">&#x25BC;</a></th>
-                <th>UPC/EAN</th>
-                <th>Sodium (%)</th>
-                <th>Actions</th>
+                <th>Name
+                    <div th:if="1 != ${findMode}">
+                        <input type="text" id="findByName" size="5" class="form-control" onkeydown="findByName('name', this.value)" />
+                        <a class="btn" href="edibles?sort=name&dir=asc">&#x25B2;</a>
+                        <a class="btn" href="edibles?sort=name&dir=desc">&#x25BC;</a>
+                    </div>
+                </th>
+                <th>Brand
+                    <div th:if="1 != ${findMode}">
+                        <input type="text" id="findByBrand" size="5" class="form-control" onkeydown="findByName('brand', this.value)" />
+                        <a class="btn" href="edibles?sort=brand&dir=asc">&#x25B2;</a>
+                        <a class="btn" href="edibles?sort=brand&dir=desc">&#x25BC;</a>
+                    </div>
+                </th>
+                <th valign="top">UPC/EAN
+                    <div th:if="1 != ${findMode}">
+                        <input type="text" id="findByUpc" size="5" class="form-control" onkeydown="findByName('upc', this.value)" />
+                    </div>
+                </th>
+                <th valign="top">Sodium (%)
+                </th>
+                <th valign="top">Actions
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +57,7 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/edibles/edit" class="btn btn-primary">Add a new edible</a></p>
+    <p><a href="/edibles/edit" class="btn btn-primary">Add a new edible</a> <a href="/edibles" class="btn btn-primary">Back</a></p>
 </div>
 </body>
 </html>

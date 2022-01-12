@@ -32,11 +32,11 @@ public class EdibleController {
                                 @RequestParam(value = "sort", defaultValue = "name", required=false) String sort,
                                 @RequestParam(value = "dir",  defaultValue = "asc",  required=false) String dir ) {
         List<Edible> edibles = repository.findAll(Sort.by("asc".equals(dir)?Sort.Direction.ASC:Sort.Direction.DESC, sort));
-        List<EdibleDTO> edibleDTOs = new ArrayList<>();
-        edibles.forEach(edible -> edibleDTOs.add(mapper.edibleToEdibleDTO(edible)));
-        model.addAttribute("edibles", edibleDTOs);
+        model.addAttribute("edibles", edibleToDTO(edibles));
         return "list-edibles";
     }
+
+
 
     @GetMapping({"/edibles/edit", "/edibles/edit/{id}"})
     public String addEdible(Model model, @PathVariable("id") Optional<String> id) {
@@ -59,7 +59,45 @@ public class EdibleController {
 
     @PostMapping("/edibles/upsert")
     public String upsertEdible(Edible edible) {
-        repository.upsert(edible);
+        if (edible.getId()==null || edible.getId().length()==0) {
+            edible.setId(null);
+            repository.insert(edible);
+        } else {
+            repository.save(edible);
+        }
         return "redirect:/edibles";
+    }
+
+    @GetMapping("/edibles/find/name/{criteria}")
+    public String findEdiblesByName(Model model,
+                                   @PathVariable(value = "criteria", required = true) String criteria) {
+        List<Edible> edibles = repository.findByNameLike(criteria, Sort.by(Sort.Direction.ASC, "name"));
+        model.addAttribute("edibles", edibleToDTO(edibles));
+        model.addAttribute("findMode", 1);
+        return "list-edibles";
+    }
+
+    @GetMapping("/edibles/find/brand/{criteria}")
+    public String findEdiblesByBrand(Model model,
+                                    @PathVariable(value = "criteria", required = true) String criteria) {
+        List<Edible> edibles = repository.findByBrandLike(criteria, Sort.by(Sort.Direction.ASC, "brand"));
+        model.addAttribute("edibles", edibleToDTO(edibles));
+        model.addAttribute("findMode", 1);
+        return "list-edibles";
+    }
+
+    @GetMapping("/edibles/find/upc/{criteria}")
+    public String findEdiblesByUpc(Model model,
+                                    @PathVariable(value = "criteria", required = true) String criteria) {
+        List<Edible> edibles = repository.findByUpc(criteria);
+        model.addAttribute("edibles", edibleToDTO(edibles));
+        model.addAttribute("findMode", 1);
+        return "list-edibles";
+    }
+
+    protected List<EdibleDTO> edibleToDTO(List<Edible> edibles) {
+        List<EdibleDTO> edibleDTOs = new ArrayList<>();
+        edibles.forEach(edible -> edibleDTOs.add(mapper.edibleToEdibleDTO(edible)));
+        return edibleDTOs;
     }
 }
