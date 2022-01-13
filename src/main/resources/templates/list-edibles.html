@@ -57,7 +57,8 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/edibles/edit" class="btn btn-primary">Add a new edible</a> <a href="/edibles" class="btn btn-primary">Back</a></p>
+    <p><a th:if="1 != ${findMode}" href="/edibles/edit" class="btn btn-primary">Add a new edible</a> <a th:if="1 == ${findMode}" href="/edibles" class="btn btn-primary">Back</a></p>
+    <p><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary">Preferences</a></p>
 </div>
 </body>
 </html>
