@@ -3,8 +3,11 @@ package health.hbp.mapper;
 import health.hbp.dto.EdibleDTO;
 import health.hbp.model.Edible;
 import org.mapstruct.*;
+import org.springframework.context.annotation.Primary;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Primary
+@DecoratedWith(EdibleMapperDecorator.class)
 public interface EdibleMapper {
 
     // variables with same name (line name or upc) are automatically mapped

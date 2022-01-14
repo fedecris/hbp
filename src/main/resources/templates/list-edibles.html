@@ -41,6 +41,8 @@
                 </th>
                 <th valign="top">Sodium (%)
                 </th>
+                <th valign="top">Portions Limit
+                </th>
                 <th valign="top">Actions
                 </th>
             </tr>
@@ -51,6 +53,7 @@
                 <td th:text="${edible.brand}"></td>
                 <td th:text="${edible.upc}"></td>
                 <td th:text="${edible.saturationSodium}"></td>
+                <td th:text="${edible.portionsToSodiumLimit}"></td>
                 <td><a th:href="@{/edibles/edit/{id}(id=${edible.id})}" class="btn btn-primary">Edit</a>
                 <a th:href="@{/edibles/delete/{id}(id=${edible.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
             </tr>
