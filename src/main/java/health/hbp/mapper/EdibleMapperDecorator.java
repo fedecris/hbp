@@ -23,12 +23,12 @@ public abstract class EdibleMapperDecorator implements EdibleMapper {
     }
 
     /** Number of portions until reach sodium limit */
-    protected Double calculatePortionsToSodiumLimit(Edible edible) {
+    protected String calculatePortionsToSodiumLimit(Edible edible) {
         Double portionsToSodiumLimit = null;
         try {
             Double dailySodiumLimit = preferencesRepository.findAll().get(0).getDailySodiumLimit();
             portionsToSodiumLimit = Math.floor(dailySodiumLimit * edible.getFacts().getPortion() / edible.getFacts().getSodium() / edible.getFacts().getPortion() * 10) / 10;
         } catch (Exception e) { /* Some fact or preference not configured */ }
-        return portionsToSodiumLimit;
+        return portionsToSodiumLimit == null ? "Check conf." : (portionsToSodiumLimit.isInfinite() ? "All that you want!" : "Less than " + portionsToSodiumLimit.intValue());
     }
 }

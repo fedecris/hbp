@@ -18,5 +18,5 @@ public class EdibleDTO {
     /** Saturation (%) */
     private Double saturationSodium;
     /** portions to reach sodium limit */
-    private Double portionsToSodiumLimit;
+    private String portionsToSodiumLimit;
 }
