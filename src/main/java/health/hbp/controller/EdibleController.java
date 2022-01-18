@@ -36,19 +36,23 @@ public class EdibleController {
         return "list-edibles";
     }
 
-
-
     @GetMapping({"/edibles/edit", "/edibles/edit/{id}"})
     public String addEdible(Model model, @PathVariable("id") Optional<String> id) {
         if (id.isPresent()) {
-            repository.findById(id.get()).ifPresent(
-                    edible -> {
-                        model.addAttribute("edible", edible);
-                    });
+            repository.findById(id.get()).ifPresent(edible -> model.addAttribute("edible", edible));
         } else {
             model.addAttribute("edible", new Edible());
         }
         return "edit-edibles";
+    }
+
+    @GetMapping("/edibles/view/{id}")
+    public String viewEdible(Model model, @PathVariable("id") Optional<String> id) {
+        if (id.isPresent() && repository.findById(id.get()).isPresent()) {
+            model.addAttribute("edible", mapper.edibleToEdibleDTO(repository.findById(id.get()).get()));
+            return "view-edibles";
+        }
+        return "error-404";
     }
 
     @GetMapping("/edibles/delete/{id}")
@@ -100,4 +104,7 @@ public class EdibleController {
         edibles.forEach(edible -> edibleDTOs.add(mapper.edibleToEdibleDTO(edible)));
         return edibleDTOs;
     }
+
+
+
 }

@@ -1,5 +1,6 @@
 package health.hbp.dto;
 
+import health.hbp.model.Facts;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,8 @@ public class EdibleDTO {
     private String brand;
     /** entity upc or ean*/
     private String upc;
+    /** Nutrition facts */
+    private Facts facts;
     /** Saturation (%) */
     private Double saturationSodium;
     /** portions to reach sodium limit */

@@ -23,15 +23,15 @@
                 <th>Name
                     <div th:if="1 != ${findMode}">
                         <input type="text" id="findByName" size="5" class="form-control" onkeydown="findByName('name', this.value)" />
-                        <a class="btn" href="edibles?sort=name&dir=asc">&#x25B2;</a>
-                        <a class="btn" href="edibles?sort=name&dir=desc">&#x25BC;</a>
+                        <a class="btn" href="?sort=name&dir=asc">&#x25B2;</a>
+                        <a class="btn" href="?sort=name&dir=desc">&#x25BC;</a>
                     </div>
                 </th>
                 <th>Brand
                     <div th:if="1 != ${findMode}">
                         <input type="text" id="findByBrand" size="5" class="form-control" onkeydown="findByName('brand', this.value)" />
-                        <a class="btn" href="edibles?sort=brand&dir=asc">&#x25B2;</a>
-                        <a class="btn" href="edibles?sort=brand&dir=desc">&#x25BC;</a>
+                        <a class="btn" href="?sort=brand&dir=asc">&#x25B2;</a>
+                        <a class="btn" href="?sort=brand&dir=desc">&#x25BC;</a>
                     </div>
                 </th>
                 <th valign="top">UPC/EAN
@@ -49,7 +49,7 @@
             </thead>
             <tbody>
             <tr th:each="edible : ${edibles}">
-                <td th:text="${edible.name}"></td>
+                <td><a th:href="@{/edibles/view/{id}(id=${edible.id})}" th:text="${edible.name}"></a></td>
                 <td th:text="${edible.brand}"></td>
                 <td th:text="${edible.upc}"></td>
                 <td th:text="${edible.saturationSodium}"></td>

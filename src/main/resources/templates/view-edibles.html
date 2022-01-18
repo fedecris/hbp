@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Edible</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <h3 th:if="${edible.id}"> Edible details </h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <div>Name</div>
+                            <div class="fs-1" th:text=${edible.name}></div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div>Brand</div>
+                            <div class="fs-1" th:text=${edible.brand}></div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div>UPC</div>
+                            <div class="fs-1" th:text=${edible.upc}></div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div>Sodium</div>
+                            <div class="fs-1" th:text="${edible.facts.sodium + ' g/ml in ' + edible.facts.portion + ' grams'}"></div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div>Sodium saturation</div>
+                            <div class="fs-1" th:text=${edible.saturationSodium}></div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div>Daily portions limit </div>
+                            <div class="fs-1" th:text=${edible.portionsToSodiumLimit}></div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="button" onclick="history.back()" class="btn btn-primary" value=" Back "></input>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
