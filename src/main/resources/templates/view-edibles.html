@@ -16,23 +16,23 @@
                             <div>Name</div>
                             <div class="fs-1" th:text=${edible.name}></div>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div th:if="${!#strings.isEmpty(edible.brand)}" class="form-group col-md-8">
                             <div>Brand</div>
                             <div class="fs-1" th:text=${edible.brand}></div>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div th:if="${!#strings.isEmpty(edible.upc)}" class="form-group col-md-8">
                             <div>UPC</div>
                             <div class="fs-1" th:text=${edible.upc}></div>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div th:if="${!#strings.isEmpty(edible.facts.sodium) && !#strings.isEmpty(edible.facts.portion)}" class="form-group col-md-8">
                             <div>Sodium</div>
                             <div class="fs-1" th:text="${edible.facts.sodium + ' g/ml in ' + edible.facts.portion + ' grams'}"></div>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div th:if="${edible.saturationSodium != null}" class="form-group col-md-8">
                             <div>Sodium saturation</div>
                             <div class="fs-1" th:text=${edible.saturationSodium}></div>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div th:if="${!#strings.isEmpty(edible.portionsToSodiumLimit)}" class="form-group col-md-8">
                             <div>Daily portions limit </div>
                             <div class="fs-1" th:text=${edible.portionsToSodiumLimit}></div>
                         </div>
