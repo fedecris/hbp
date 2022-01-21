@@ -29,8 +29,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation "io.swagger:swagger-annotations:1.5.21"
+	implementation "io.swagger:swagger-models:1.6.0"
 }
 
 test {
 	useJUnitPlatform()
 }
+

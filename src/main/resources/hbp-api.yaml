@@ -1,0 +1,47 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: HBP Service
+  description: The HBP service
+
+tags:
+  - name: "HBP"
+
+paths:
+
+  /hbp/api/v1.0/edibles:
+    get:
+      summary: Retrieve all edibles
+      tags:
+        - "edible"
+      description: This end-point return the complete list of available edibles
+      operationId: getAllEdibles
+      responses:
+        "200":
+          description: Everything OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Edible'
+
+components:
+  schemas:
+    Edible:
+      description: A fit or suitable to be eaten element
+      type: object
+      properties:
+        id:
+          description: The identifier of the edible
+          type: string
+        name:
+          description: The name of the edible
+          type: string
+        brand:
+          description: Brand of the edible
+          type: string
+        upc:
+          description: UPC of the edible
+          type: string
