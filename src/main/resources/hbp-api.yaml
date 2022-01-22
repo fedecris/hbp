@@ -45,3 +45,23 @@ components:
         upc:
           description: UPC of the edible
           type: string
+        facts:
+          description: Nutrition facts for this edible
+          type: object
+          $ref: '#/components/schemas/Facts'
+    Facts:
+      description: A nutrition fact
+      type: object
+      properties:
+        portion:
+          description: The amount of edible expressed in grams or milliliters
+          type: number
+          format: double
+        sodium:
+          description: The amount of sodium expressed in milligrams
+          type: number
+          format: double
+        potassium:
+          description: The amount of potassium expressed in milligrams
+          type: number
+          format: double

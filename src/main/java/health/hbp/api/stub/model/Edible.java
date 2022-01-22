@@ -3,6 +3,7 @@ package health.hbp.api.stub.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import health.hbp.api.stub.model.Facts;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "A fit or suitable to be eaten element")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-21T11:35:17.569-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-22T10:18:01.609-03:00[America/Argentina/Buenos_Aires]")
 public class Edible   {
   @JsonProperty("id")
   private String id = null;
@@ -27,6 +28,9 @@ public class Edible   {
 
   @JsonProperty("upc")
   private String upc = null;
+
+  @JsonProperty("facts")
+  private Facts facts = null;
 
   public Edible id(String id) {
     this.id = id;
@@ -104,6 +108,26 @@ public class Edible   {
     this.upc = upc;
   }
 
+  public Edible facts(Facts facts) {
+    this.facts = facts;
+    return this;
+  }
+
+  /**
+   * Get facts
+   * @return facts
+  **/
+  @ApiModelProperty(value = "")
+  
+    @Valid
+    public Facts getFacts() {
+    return facts;
+  }
+
+  public void setFacts(Facts facts) {
+    this.facts = facts;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -117,12 +141,13 @@ public class Edible   {
     return Objects.equals(this.id, edible.id) &&
         Objects.equals(this.name, edible.name) &&
         Objects.equals(this.brand, edible.brand) &&
-        Objects.equals(this.upc, edible.upc);
+        Objects.equals(this.upc, edible.upc) &&
+        Objects.equals(this.facts, edible.facts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, brand, upc);
+    return Objects.hash(id, name, brand, upc, facts);
   }
 
   @Override
@@ -134,6 +159,7 @@ public class Edible   {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
     sb.append("    upc: ").append(toIndentedString(upc)).append("\n");
+    sb.append("    facts: ").append(toIndentedString(facts)).append("\n");
     sb.append("}");
     return sb.toString();
   }
