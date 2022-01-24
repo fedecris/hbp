@@ -26,6 +26,47 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Edible'
+  /hbp/api/v1.0/edibles/{id}:
+    get:
+      summary: Retrieve an edible information
+      tags:
+        - "edible"
+      parameters:
+        - name: id
+          in: path
+          description: Edible ID
+          required: true
+          schema:
+            type: string
+      description: Retrieves complete information of an edible
+      operationId: retrieveEdible
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Edible'
+    delete:
+      summary: Delete an edible
+      tags:
+        - "edible"
+      parameters:
+        - name: id
+          in: path
+          description: Edible ID
+          required: true
+          schema:
+            type: string
+      description: Removes an existing edible
+      operationId: deleteEdible
+      responses:
+        "200":
+          description: Edible deleted
+          content:
+            text/plain:
+              schema:
+                type: string
 
 components:
   schemas:

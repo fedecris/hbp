@@ -23,9 +23,19 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-23T11:37:42.623-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T12:51:58.059-03:00[America/Argentina/Buenos_Aires]")
 @Api(value = "hbp", description = "the hbp API")
 public interface HbpApi {
+
+    @ApiOperation(value = "Delete an edible", nickname = "deleteEdible", notes = "Removes an existing edible", response = String.class, tags={ "edible", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Edible deleted", response = String.class) })
+    @RequestMapping(value = "/hbp/api/v1.0/edibles/{id}",
+        produces = { "text/plain" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<String> deleteEdible(@ApiParam(value = "Edible ID",required=true) @PathVariable("id") String id
+);
+
 
     @ApiOperation(value = "Retrieve all edibles", nickname = "getAllEdibles", notes = "This end-point return the complete list of available edibles", response = Edible.class, responseContainer = "List", tags={ "edible", })
     @ApiResponses(value = { 
@@ -34,5 +44,15 @@ public interface HbpApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Edible>> getAllEdibles();
+
+
+    @ApiOperation(value = "Retrieve an edible information", nickname = "retrieveEdible", notes = "Retrieves complete information of an edible", response = Edible.class, tags={ "edible", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "OK", response = Edible.class) })
+    @RequestMapping(value = "/hbp/api/v1.0/edibles/{id}",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<Edible> retrieveEdible(@ApiParam(value = "Edible ID",required=true) @PathVariable("id") String id
+);
 
 }
