@@ -47,4 +47,20 @@ public class HBPController implements HbpApi {
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public ResponseEntity<String> updateEdible(Edible body, String id) {
+        Optional edible = edibleRepository.findById(id);
+        if (edible.isPresent()) {
+            ((health.hbp.model.Edible)edible.get()).setName(body.getName());
+            ((health.hbp.model.Edible)edible.get()).setBrand(body.getBrand());
+            ((health.hbp.model.Edible)edible.get()).setUpc(body.getUpc());
+            ((health.hbp.model.Edible)edible.get()).getFacts().setPortion(body.getFacts().getPortion());
+            ((health.hbp.model.Edible)edible.get()).getFacts().setSodium(body.getFacts().getSodium());
+            ((health.hbp.model.Edible)edible.get()).getFacts().setPotassium(body.getFacts().getPotassium());
+            edibleRepository.save(((health.hbp.model.Edible)edible.get()));
+            return new ResponseEntity("Updated!", HttpStatus.OK);
+        }
+        return new ResponseEntity("No edible found with the specified ID", HttpStatus.NOT_FOUND);
+    }
 }

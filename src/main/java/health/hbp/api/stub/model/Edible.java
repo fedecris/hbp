@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "A fit or suitable to be eaten element")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T12:51:58.059-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T14:51:52.682-03:00[America/Argentina/Buenos_Aires]")
 public class Edible   {
   @JsonProperty("id")
   private String id = null;

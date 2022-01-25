@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T12:51:58.059-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T14:51:52.682-03:00[America/Argentina/Buenos_Aires]")
 @Api(value = "hbp", description = "the hbp API")
 public interface HbpApi {
 
@@ -53,6 +53,18 @@ public interface HbpApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Edible> retrieveEdible(@ApiParam(value = "Edible ID",required=true) @PathVariable("id") String id
+);
+
+
+    @ApiOperation(value = "Updates an existing edible", nickname = "updateEdible", notes = "", response = String.class, tags={ "edible", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Edible updated", response = String.class) })
+    @RequestMapping(value = "/hbp/api/v1.0/edibles/{id}",
+        produces = { "text/plain" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    ResponseEntity<String> updateEdible(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Edible body
+,@ApiParam(value = "Edible ID",required=true) @PathVariable("id") String id
 );
 
 }
