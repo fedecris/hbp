@@ -32,7 +32,7 @@ public class HBPController implements HbpApi {
         return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
     }
 
-    @GetMapping("/hbp/api/v1.0/edibles")
+    @Override
     public ResponseEntity<List<Edible>> getAllEdibles() {
         List<Edible> edibles = new ArrayList<>();
         edibleRepository.findAll().forEach(edible -> edibles.add(mapper.map(edible)));
@@ -52,15 +52,22 @@ public class HBPController implements HbpApi {
     public ResponseEntity<String> updateEdible(Edible body, String id) {
         Optional edible = edibleRepository.findById(id);
         if (edible.isPresent()) {
-            ((health.hbp.model.Edible)edible.get()).setName(body.getName());
-            ((health.hbp.model.Edible)edible.get()).setBrand(body.getBrand());
-            ((health.hbp.model.Edible)edible.get()).setUpc(body.getUpc());
-            ((health.hbp.model.Edible)edible.get()).getFacts().setPortion(body.getFacts().getPortion());
-            ((health.hbp.model.Edible)edible.get()).getFacts().setSodium(body.getFacts().getSodium());
-            ((health.hbp.model.Edible)edible.get()).getFacts().setPotassium(body.getFacts().getPotassium());
+            if (body.getName()!=null && body.getName().length()>0)
+                ((health.hbp.model.Edible)edible.get()).setName(body.getName());
+            if (body.getBrand()!=null && body.getBrand().length()>0)
+                ((health.hbp.model.Edible)edible.get()).setBrand(body.getBrand());
+            if (body.getUpc()!=null && body.getUpc().length()>0)
+                ((health.hbp.model.Edible)edible.get()).setUpc(body.getUpc());
+            if (body.getFacts()!=null && body.getFacts().getPortion()!=null && body.getFacts().getPortion().toString().length()>0)
+                ((health.hbp.model.Edible)edible.get()).getFacts().setPortion(body.getFacts().getPortion());
+            if (body.getFacts()!=null && body.getFacts().getSodium()!=null && body.getFacts().getSodium().toString().length()>0)
+                ((health.hbp.model.Edible)edible.get()).getFacts().setSodium(body.getFacts().getSodium());
+            if (body.getFacts()!=null && body.getFacts().getPotassium()!=null && body.getFacts().getPotassium().toString().length()>0)
+                ((health.hbp.model.Edible)edible.get()).getFacts().setPotassium(body.getFacts().getPotassium());
             edibleRepository.save(((health.hbp.model.Edible)edible.get()));
-            return new ResponseEntity("Updated!", HttpStatus.OK);
+            return new ResponseEntity(id, HttpStatus.OK);
         }
         return new ResponseEntity("No edible found with the specified ID", HttpStatus.NOT_FOUND);
     }
+
 }
