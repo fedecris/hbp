@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "A nutrition fact")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T14:51:52.682-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-29T12:28:12.156-03:00[America/Argentina/Buenos_Aires]")
 public class Facts   {
   @JsonProperty("portion")
   private Double portion = null;

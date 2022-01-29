@@ -26,6 +26,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Edible'
+    post:
+      summary: Adds new edible
+      tags:
+        - "edible"
+      description: Adds a new edible
+      operationId: addEdible
+      responses:
+        "200":
+          description: Edible added. New edible ID is returned
+          content:
+            text/plain:
+              schema:
+                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Edible'
   /hbp/api/v1.0/edibles/{id}:
     get:
       summary: Retrieve an edible information

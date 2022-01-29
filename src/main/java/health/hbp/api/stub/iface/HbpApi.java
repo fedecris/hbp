@@ -23,9 +23,20 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-24T14:51:52.682-03:00[America/Argentina/Buenos_Aires]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-29T12:28:12.156-03:00[America/Argentina/Buenos_Aires]")
 @Api(value = "hbp", description = "the hbp API")
 public interface HbpApi {
+
+    @ApiOperation(value = "Adds new edible", nickname = "addEdible", notes = "Adds a new edible", response = String.class, tags={ "edible", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Edible added. New edible ID is returned", response = String.class) })
+    @RequestMapping(value = "/hbp/api/v1.0/edibles",
+        produces = { "text/plain" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<String> addEdible(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Edible body
+);
+
 
     @ApiOperation(value = "Delete an edible", nickname = "deleteEdible", notes = "Removes an existing edible", response = String.class, tags={ "edible", })
     @ApiResponses(value = { 

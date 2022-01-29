@@ -4,6 +4,7 @@ package health.hbp.api.controller;
 import health.hbp.api.mapper.APIEdibleMapper;
 import health.hbp.api.stub.iface.HbpApi;
 import health.hbp.api.stub.model.Edible;
+import health.hbp.model.Facts;
 import health.hbp.repository.EdibleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,23 @@ public class HBPController implements HbpApi {
     @Autowired
     private EdibleRepository edibleRepository;
 
+
+    @Override
+    public ResponseEntity<String> addEdible(Edible body) {
+        health.hbp.model.Edible newEdible = new health.hbp.model.Edible();
+        newEdible.setName(body.getName());
+        newEdible.setBrand(body.getBrand());
+        newEdible.setUpc(body.getUpc());
+        if (body.getFacts()!=null) {
+            Facts facts = new Facts();
+            facts.setPortion(body.getFacts().getPortion());
+            facts.setSodium(body.getFacts().getSodium());
+            facts.setPotassium(body.getFacts().getPotassium());
+            newEdible.setFacts(facts);
+        }
+        edibleRepository.save(newEdible);
+        return new ResponseEntity<>(newEdible.getId(), HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<String> deleteEdible(String id) {
