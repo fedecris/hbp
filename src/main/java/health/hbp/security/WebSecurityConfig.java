@@ -9,13 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private InMemoryAuthenticationProvider authProvider;
+    private MongoDBAuthenticationProvider authProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authenticationProvider(authProvider);
 
         http.authorizeRequests()
+                .antMatchers("/edibles/edit").authenticated()
                 .antMatchers("/edibles/edit/*").authenticated()
                 .antMatchers("/edibles/delete/*").authenticated()
                 .antMatchers("/preferences").authenticated()

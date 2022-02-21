@@ -16,8 +16,4 @@ public class SessionController {
         return ResponseEntity.ok((counter==null?1:counter+1));
     }
 
-    @GetMapping("/login")
-    public String login(HttpSession session) {
-        return "login";
-    }
 }
