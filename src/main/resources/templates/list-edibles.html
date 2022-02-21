@@ -16,7 +16,24 @@
 <div th:switch="${edibles}">
     <h2 th:case="null">No edibles yet!</h2>
     <div th:case="*">
-        <h2>Edibles</h2>
+        <table>
+            <tr>
+                <td>
+                    <h2>Edibles</h2>
+                </td>
+                <td>
+                    <div th:if="${#httpServletRequest.remoteUser} == null">
+                        <a href="/login" class="btn btn-primary">Login</a>
+                    </div>
+                    <div th:if="${#httpServletRequest.remoteUser} != null">
+                        <div th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</div>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out" class="btn btn-primary" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <table class="table table-striped">
             <thead>
             <tr>
