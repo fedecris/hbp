@@ -16,19 +16,22 @@
 <div th:switch="${edibles}">
     <h2 th:case="null">No edibles yet!</h2>
     <div th:case="*">
-        <table>
+        <table width="100%">
             <tr>
+                <td width="80%">
+                    <h2 data-th-text="#{edibles.title}"></h2>
+                </td>
                 <td>
-                    <h2>Edibles</h2>
+                    <a th:href="@{/edibles?language=en}" >English</a> | <a th:href="@{/edibles?language=es}" >Español</a>
                 </td>
                 <td>
                     <div th:if="${#httpServletRequest.remoteUser} == null">
-                        <a href="/login" class="btn btn-primary">Login</a>
+                        <a href="/login" class="btn btn-primary" data-th-text="#{button.login}"/>
                     </div>
                     <div th:if="${#httpServletRequest.remoteUser} != null">
-                        <div th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</div>
+                        <div th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
                         <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" class="btn btn-primary" />
+                            <input type="button" onclick="form.submit();" class="btn btn-primary" data-th-value="#{button.logout}" />
                         </form>
                     </div>
                 </td>
@@ -37,30 +40,36 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name
+                <th>
+                    <div data-th-text="#{edibles.name}" />
                     <div th:if="1 != ${findMode}">
                         <input type="text" id="findByName" size="5" class="form-control" onkeydown="findByName('name', this.value)" />
                         <a class="btn" href="?sort=name&dir=asc">&#x25B2;</a>
                         <a class="btn" href="?sort=name&dir=desc">&#x25BC;</a>
                     </div>
                 </th>
-                <th>Brand
+                <th>
+                    <div data-th-text="#{edibles.brand}" />
                     <div th:if="1 != ${findMode}">
                         <input type="text" id="findByBrand" size="5" class="form-control" onkeydown="findByName('brand', this.value)" />
                         <a class="btn" href="?sort=brand&dir=asc">&#x25B2;</a>
                         <a class="btn" href="?sort=brand&dir=desc">&#x25BC;</a>
                     </div>
                 </th>
-                <th valign="top">UPC/EAN
+                <th valign="top">
+                    <div data-th-text="#{edibles.upc}" />
                     <div th:if="1 != ${findMode}">
                         <input type="text" id="findByUpc" size="5" class="form-control" onkeydown="findByName('upc', this.value)" />
                     </div>
                 </th>
-                <th valign="top">Sodium (%)
+                <th valign="top">
+                    <div data-th-text="#{edibles.sodium}" />
                 </th>
-                <th valign="top">Portions Limit
+                <th valign="top">
+                    <div data-th-text="#{edibles.portions}" />
                 </th>
-                <th valign="top">Actions
+                <th valign="top">
+                    <div data-th-text="#{edibles.actions}" />
                 </th>
             </tr>
             </thead>
@@ -71,14 +80,14 @@
                 <td th:text="${edible.upc}"></td>
                 <td th:text="${edible.saturationSodium}"></td>
                 <td th:text="${edible.portionsToSodiumLimit}"></td>
-                <td><a th:href="@{/edibles/edit/{id}(id=${edible.id})}" class="btn btn-primary">Edit</a>
-                <a th:href="@{/edibles/delete/{id}(id=${edible.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+                <td><a th:href="@{/edibles/edit/{id}(id=${edible.id})}" class="btn btn-primary" data-th-text="#{button.edit}" />
+                <a th:href="@{/edibles/delete/{id}(id=${edible.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')" data-th-text="#{button.delete}" /></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a th:if="1 != ${findMode}" href="/edibles/edit" class="btn btn-primary">Add a new edible</a> <a th:if="1 == ${findMode}" href="/edibles" class="btn btn-primary">Back</a></p>
-    <p><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary">Preferences</a></p>
+    <p><a th:if="1 != ${findMode}" href="/edibles/edit" class="btn btn-primary" data-th-text="#{button.add}" /> <a th:if="1 == ${findMode}" href="/edibles" class="btn btn-primary" data-th-text="#{button.back}"/></p>
+    <p><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary" data-th-text="#{button.pref}" /></p>
 </div>
 </body>
 </html>

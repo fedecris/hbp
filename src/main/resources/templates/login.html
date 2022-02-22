@@ -7,24 +7,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
-    <h2>Login</h2>
-    <div th:if="${param.error}">Invalid username or password</div>
-    <div th:if="${param.logout}">You have been logged out</div>
+    <h2 data-th-text="#{action.login}" />
+    <div th:if="${param.error}" data-th-text="#{user.invalid}" />
+    <div th:if="${param.logout}" data-th-text="#{user.loggedout}" />
     <table class="table">
         <form th:action="@{/login}" method="post">
             <tr>
-                <th>
-                    Username: <input type="text" id="username" name="username" />
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    Password: <input type="password" id="password" name="password" />
-                </th>
+                <td>
+                    <div data-th-text="#{user.name}" />
+                     <input type="text" id="username" name="username" />
+                </td>
             </tr>
             <tr>
                 <td>
-                    <input type="submit">
+                    <div data-th-text="#{user.pass}" />
+                    <input type="password" id="password" name="password" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" class="btn btn-primary" data-th-value="#{action.send}">
+                    <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
                 </td>
             </tr>
         </form>

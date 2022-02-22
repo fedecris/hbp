@@ -7,15 +7,15 @@
 </head>
 <body>
 <div class="container my-5">
-    <h3> Edit Preferences </h3>
+    <h3 data-th-text="#{user.editPreferences}" />
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
                 <form action="#" th:action="@{/preferences/upsert}" th:object="${preferences}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="dailySodiumLimit" class="col-form-label">Daily Sodium Limit (mg)</label>
-                            <input type="text" th:field="*{dailySodiumLimit}" id="dailySodiumLimit" placeholder="Daily Limit in mg" class="form-control" />
+                            <label for="dailySodiumLimit" class="col-form-label" data-th-text="#{edibles.dailySodiumLimit}" />
+                            <input type="text" th:field="*{dailySodiumLimit}" id="dailySodiumLimit" class="form-control" />
                         </div>
                         <div class="form-group col-md-6">
                             <input type="hidden" id="id" th:field="*{id}">
@@ -23,8 +23,8 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value=" Save ">
-                        <input type="button" onclick="history.back()" class="btn btn-primary" value=" Back "></input>
+                        <input type="submit" class="btn btn-primary" value-th-text="#{action.save}" />
+                        <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
                     </div>
             </div>
         </div>

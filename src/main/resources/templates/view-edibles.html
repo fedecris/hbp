@@ -7,37 +7,37 @@
 </head>
 <body>
 <div class="container my-5">
-    <h3 th:if="${edible.id}"> Edible details </h3>
+    <h3 th:if="${edible.id}" data-th-text="#{edibles.detail}" />
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <div>Name</div>
+                            <div data-th-text="#{edibles.name}" />
                             <div class="fs-1" th:text=${edible.name}></div>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.brand)}" class="form-group col-md-8">
-                            <div>Brand</div>
+                            <div data-th-text="#{edibles.brand}" />
                             <div class="fs-1" th:text=${edible.brand}></div>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.upc)}" class="form-group col-md-8">
-                            <div>UPC</div>
+                            <div data-th-text="#{edibles.upc}" />
                             <div class="fs-1" th:text=${edible.upc}></div>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.facts.sodium) && !#strings.isEmpty(edible.facts.portion)}" class="form-group col-md-8">
-                            <div>Sodium</div>
+                            <div data-th-text="#{edibles.sodium}" />
                             <div class="fs-1" th:text="${edible.facts.sodium + ' g/ml in ' + edible.facts.portion + ' grams'}"></div>
                         </div>
                         <div th:if="${edible.saturationSodium != null}" class="form-group col-md-8">
-                            <div>Sodium saturation</div>
+                            <div data-th-text="#{edibles.sodiumSaturation}" />
                             <div class="fs-1" th:text=${edible.saturationSodium}></div>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.portionsToSodiumLimit)}" class="form-group col-md-8">
-                            <div>Daily portions limit </div>
+                            <div data-th-text="#{edibles.portions}"></div>
                             <div class="fs-1" th:text=${edible.portionsToSodiumLimit}></div>
                         </div>
                         <div class="col-md-6">
-                            <input type="button" onclick="history.back()" class="btn btn-primary" value=" Back "></input>
+                            <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
                         </div>
                     </div>
             </div>

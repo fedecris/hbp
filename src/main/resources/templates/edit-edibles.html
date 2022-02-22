@@ -7,39 +7,39 @@
 </head>
 <body>
 <div class="container my-5">
-    <h3 th:if="${edible.id}"> Edit Edible </h3>
-    <h3 th:unless="${edible.id}"> New Edible </h3>
+    <h3 th:if="${edible.id}" data-th-text="#{action.editEdible}" />
+    <h3 th:unless="${edible.id}" data-th-text="#{action.newEdible}" />
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
                 <form action="#" th:action="@{/edibles/upsert}" th:object="${edible}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="name" class="col-form-label">Name</label>
-                            <input type="text" th:field="*{name}" id="name" placeholder="Name" class="form-control" />
+                            <label for="name" class="col-form-label" data-th-text="#{edibles.name}" />
+                            <input type="text" th:field="*{name}" id="name" class="form-control" />
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="brand" class="col-form-label">Brand</label>
-                            <input type="text" th:field="*{brand}" id="brand" placeholder="Brand" class="form-control" />
+                            <label for="brand" class="col-form-label" data-th-text="#{edibles.brand}" />
+                            <input type="text" th:field="*{brand}" id="brand"  class="form-control" />
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="upc" class="col-form-label">UPC/EAN</label>
-                            <input type="text" th:field="*{upc}" id="upc" placeholder="Product Code" class="form-control" />
+                            <label for="upc" class="col-form-label" data-th-text="#{edibles.upc}" />
+                            <input type="text" th:field="*{upc}" id="upc" class="form-control" />
                         </div>
 
                         <div class="form-group col-md-8">
-                            <label class="col-form-label"><b>Nutrition facts</b></label>
+                            <label class="col-form-label"><b data-th-text="#{edibles.nutritionFacts}"></b></label>
                             <div class="form-group col-md-8">
-                                <label for="portion" class="col-form-label">Portion (grams/ml)</label>
-                                <input type="number" th:field="*{facts.portion}" id="portion" placeholder="Portion specified in grams or ml" class="form-control" />
+                                <label for="portion" class="col-form-label" data-th-text="#{edibles.portion}" />
+                                <input type="number" th:field="*{facts.portion}" id="portion"  class="form-control" />
                             </div>
                             <div class="form-group col-md-8">
-                                <label for="facts.sodium" class="col-form-label">Sodium (mg)</label>
-                                <input type="number" th:field="*{facts.sodium}" id="facts.sodium" placeholder="Sodium in mg" class="form-control" />
+                                <label for="facts.sodium" class="col-form-label" data-th-text="#{edibles.sodiumComposition}" />
+                                <input type="number" th:field="*{facts.sodium}" id="facts.sodium" p class="form-control" />
                             </div>
                             <div class="form-group col-md-8">
-                                <label for="facts.potassium" class="col-form-label">Potassium (mg)</label>
-                                <input type="number" th:field="*{facts.potassium}" id="facts.potassium" placeholder="Potassium in mg" class="form-control" />
+                                <label for="facts.potassium" class="col-form-label" data-th-text="#{edibles.potassiumComposition}" />
+                                <input type="number" th:field="*{facts.potassium}" id="facts.potassium" class="form-control" />
                             </div>
                         </div>
 
@@ -49,8 +49,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value=" Save ">
-                            <input type="button" onclick="history.back()" class="btn btn-primary" value=" Back "></input>
+                            <input type="submit" class="btn btn-primary" value-th-text="#{action.save}" />
+                            <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
                         </div>
                     </div>
                 </form>
