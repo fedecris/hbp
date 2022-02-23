@@ -4,6 +4,7 @@ import health.hbp.dto.EdibleDTO;
 import health.hbp.mapper.EdibleMapper;
 import health.hbp.model.Edible;
 import health.hbp.repository.EdibleRepository;
+import health.hbp.service.EdibleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class EdibleController {
 
     @Inject
     private EdibleMapper mapper;
+
+    @Autowired
+    private EdibleService edibleService;
 
     @GetMapping("/edibles")
     public String getAllEdibles(Model model,
@@ -95,6 +99,21 @@ public class EdibleController {
                                     @PathVariable(value = "criteria", required = true) String criteria) {
         List<Edible> edibles = repository.findByUpc(criteria);
         model.addAttribute("edibles", edibleToDTO(edibles));
+        model.addAttribute("findMode", 1);
+        return "list-edibles";
+    }
+
+    @GetMapping("/edibles/filter/sodium/under/{percent}")
+    public String getEdiblesUnderGivenSodiumSaturationPercent(Model model,
+                         @PathVariable(value = "percent", required = true) Float percent) {
+        model.addAttribute("edibles", edibleService.getEdiblesUnderGivenSodiumSaturationPercent(percent));
+        model.addAttribute("findMode", 1);
+        return "list-edibles";
+    }
+
+    @GetMapping("/edibles/filter/sodium/less/than/potassium")
+    public String getEdiblesWithLessSodiumThanPotassium(Model model) {
+        model.addAttribute("edibles", edibleService.getEdiblesWithLessSodiumThanPotassium());
         model.addAttribute("findMode", 1);
         return "list-edibles";
     }
