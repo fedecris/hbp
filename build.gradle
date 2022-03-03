@@ -34,6 +34,8 @@ dependencies {
 	implementation "io.swagger:swagger-annotations:1.5.21"
 	implementation "io.swagger:swagger-models:1.6.0"
 	implementation "org.springframework.session:spring-session-data-mongodb"
+	implementation group: 'de.mkammerer', name: 'argon2-jvm', version: '2.5'
+
 }
 
 test {
