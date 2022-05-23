@@ -5,6 +5,7 @@ import de.mkammerer.argon2.Argon2Factory;
 import health.hbp.model.User;
 import health.hbp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
+@Primary
 public class MongoDBAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
