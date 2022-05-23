@@ -13,7 +13,7 @@ public interface EdibleRepository extends MongoRepository<Edible, String> {
 
     List<Edible> findByBrandLike(String criteria, Sort sort);
 
-    List<Edible> findByUpc(String criteria);
+    List<Edible> findByUpcLike(String criteria);
 
 }
 

@@ -97,7 +97,7 @@ public class EdibleController {
     @GetMapping("/edibles/find/upc/{criteria}")
     public String findEdiblesByUpc(Model model,
                                     @PathVariable(value = "criteria", required = true) String criteria) {
-        List<Edible> edibles = repository.findByUpc(criteria);
+        List<Edible> edibles = repository.findByUpcLike(criteria);
         model.addAttribute("edibles", edibleToDTO(edibles));
         model.addAttribute("findMode", 1);
         return "list-edibles";
