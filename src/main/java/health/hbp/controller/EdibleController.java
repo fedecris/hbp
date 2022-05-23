@@ -8,11 +8,8 @@ import health.hbp.service.EdibleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -20,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/edibles")
 public class EdibleController {
 
     @Autowired
@@ -31,7 +29,7 @@ public class EdibleController {
     @Autowired
     private EdibleService edibleService;
 
-    @GetMapping("/edibles")
+    @GetMapping("")
     public String getAllEdibles(Model model,
                                 @RequestParam(value = "sort", defaultValue = "name", required=false) String sort,
                                 @RequestParam(value = "dir",  defaultValue = "asc",  required=false) String dir ) {
@@ -40,7 +38,7 @@ public class EdibleController {
         return "list-edibles";
     }
 
-    @GetMapping({"/edibles/edit", "/edibles/edit/{id}"})
+    @GetMapping({"/edit", "/edit/{id}"})
     public String addEdible(Model model, @PathVariable("id") Optional<String> id) {
         if (id.isPresent()) {
             repository.findById(id.get()).ifPresent(edible -> model.addAttribute("edible", edible));
@@ -50,7 +48,7 @@ public class EdibleController {
         return "edit-edibles";
     }
 
-    @GetMapping("/edibles/view/{id}")
+    @GetMapping("/view/{id}")
     public String viewEdible(Model model, @PathVariable("id") Optional<String> id) {
         if (id.isPresent() && repository.findById(id.get()).isPresent()) {
             model.addAttribute("edible", mapper.edibleToEdibleDTO(repository.findById(id.get()).get()));
@@ -59,13 +57,13 @@ public class EdibleController {
         return "error-404";
     }
 
-    @GetMapping("/edibles/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteEdible(@PathVariable("id") String id) {
         repository.deleteById(id);
         return "redirect:/edibles";
     }
 
-    @PostMapping("/edibles/upsert")
+    @PostMapping("/upsert")
     public String upsertEdible(Edible edible) {
         if (edible.getId()==null || edible.getId().length()==0) {
             edible.setId(null);
@@ -76,7 +74,7 @@ public class EdibleController {
         return "redirect:/edibles";
     }
 
-    @GetMapping("/edibles/find/name/{criteria}")
+    @GetMapping("/find/name/{criteria}")
     public String findEdiblesByName(Model model,
                                    @PathVariable(value = "criteria", required = true) String criteria) {
         List<Edible> edibles = repository.findByNameLike(criteria, Sort.by(Sort.Direction.ASC, "name"));
@@ -85,7 +83,7 @@ public class EdibleController {
         return "list-edibles";
     }
 
-    @GetMapping("/edibles/find/brand/{criteria}")
+    @GetMapping("/find/brand/{criteria}")
     public String findEdiblesByBrand(Model model,
                                     @PathVariable(value = "criteria", required = true) String criteria) {
         List<Edible> edibles = repository.findByBrandLike(criteria, Sort.by(Sort.Direction.ASC, "brand"));
@@ -94,7 +92,7 @@ public class EdibleController {
         return "list-edibles";
     }
 
-    @GetMapping("/edibles/find/upc/{criteria}")
+    @GetMapping("/find/upc/{criteria}")
     public String findEdiblesByUpc(Model model,
                                     @PathVariable(value = "criteria", required = true) String criteria) {
         List<Edible> edibles = repository.findByUpcLike(criteria);
@@ -103,7 +101,7 @@ public class EdibleController {
         return "list-edibles";
     }
 
-    @GetMapping("/edibles/filter/sodium/under/{percent}")
+    @GetMapping("/filter/sodium/under/{percent}")
     public String getEdiblesUnderGivenSodiumSaturationPercent(Model model,
                          @PathVariable(value = "percent", required = true) Float percent) {
         model.addAttribute("edibles", edibleService.getEdiblesUnderGivenSodiumSaturationPercent(percent));
@@ -111,7 +109,7 @@ public class EdibleController {
         return "list-edibles";
     }
 
-    @GetMapping("/edibles/filter/sodium/less/than/potassium")
+    @GetMapping("/filter/sodium/less/than/potassium")
     public String getEdiblesWithLessSodiumThanPotassium(Model model) {
         model.addAttribute("edibles", edibleService.getEdiblesWithLessSodiumThanPotassium());
         model.addAttribute("findMode", 1);
