@@ -8,9 +8,9 @@
 </head>
 <body>
     <h2 data-th-text="#{action.login}" />
-    <div th:if="${param.error}" data-th-text="#{user.invalid}" />
-    <div th:if="${param.logout}" data-th-text="#{user.loggedout}" />
-    <div th:if="${registerSuccess}" data-th-text="#{user.registered}" />
+    <div th:if="${param.error}" data-th-text="#{user.invalid}" class="alert alert-danger" role="alert" />
+    <div th:if="${param.logout}" data-th-text="#{user.loggedout}" class="alert alert-info" role="alert" />
+    <div th:if="${registerSuccess}" data-th-text="#{user.registered}" class="alert alert-info" role="alert" />
     <table class="table">
         <form th:action="@{/login}" method="post">
             <tr>

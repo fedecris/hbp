@@ -23,10 +23,18 @@ public class UserService {
 
     /** Registers a user.
      * @return null if no errors */
-    public String register(String username, String password) {
+    public String register(String username, String password, String passwordCheck) {
+        // User already exists?
         if (repository.findByUsername(username) != null) {
             return messageSource.getMessage("user.exists", null, LocaleContextHolder.getLocale());
         }
+
+        // Pass & check matches?
+        if (!password.equals(passwordCheck)) {
+            return messageSource.getMessage("password.mismatch", null, LocaleContextHolder.getLocale());
+        }
+
+        // Create new user
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String hashedPass = argon2.hash(1, 1024, 1, password);
         User user = new User(username, hashedPass);

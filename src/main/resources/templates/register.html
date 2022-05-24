@@ -8,30 +8,30 @@
 </head>
 <body>
 <h2 data-th-text="#{action.register}" />
-<div th:if="${errorMsg}" data-th-text="${errorMsg}" />
+<div th:if="${errorMsg}" data-th-text="${errorMsg}" class="alert alert-danger" role="alert" />
 <table class="table">
     <form th:action="@{/register}" method="post">
         <tr>
             <td>
                 <div data-th-text="#{user.name}" />
-                <input type="text" id="username" name="username" />
+                <input type="text" id="username" name="username" required minlength="4"/>
             </td>
         </tr>
         <tr>
             <td>
                 <div data-th-text="#{user.pass}" />
-                <input type="password" id="password" name="password" />
+                <input type="password" id="password" name="password" required minlength="6"/>
             </td>
         </tr>
         <tr>
             <td>
                 <div data-th-text="#{user.passVerify}" />
-                <input type="password" id="password2" name="password2" />
+                <input type="password" id="password2" name="password2" required minlength="6"/>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" class="btn btn-primary" data-th-value="#{action.send}">
+                <input type="submit" class="btn btn-primary" data-th-value="#{action.send}" />
                 <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
             </td>
         </tr>
