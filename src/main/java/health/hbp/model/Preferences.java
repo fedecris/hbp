@@ -16,18 +16,10 @@ public class Preferences {
     private String id;
 
     @NotNull
+    User user;
+
+    @NotNull
     private Double dailySodiumLimit;
 
-    public Preferences() {
 
-    }
-
-    public Preferences(String id) {
-        this.id = id;
-    }
-
-    public Preferences(String id, Double dailySodiumLimit) {
-        this.id = id;
-        this.dailySodiumLimit = dailySodiumLimit;
-    }
 }

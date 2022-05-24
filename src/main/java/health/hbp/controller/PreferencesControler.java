@@ -2,6 +2,7 @@ package health.hbp.controller;
 
 import health.hbp.model.Preferences;
 import health.hbp.repository.PreferencesRepository;
+import health.hbp.service.PreferencesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,18 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PreferencesControler {
 
     @Autowired
-    PreferencesRepository repository;
+    PreferencesService service;
 
     @GetMapping("/preferences")
     public String getPreferences(Model model) {
-        Preferences preferences = (repository.count() > 0 ? repository.findAll().get(0) : new Preferences("1"));
+        Preferences preferences = service.getPreferencesForLoggedUser(true);
         model.addAttribute("preferences", preferences);
         return "edit-preferences";
     }
 
     @PostMapping("/preferences/upsert")
     public String upsertPreferences(Preferences preferences) {
-       repository.save(preferences);
+       service.savePreferencesForLoggedUser(preferences);
        return "redirect:/edibles";
     }
 }
