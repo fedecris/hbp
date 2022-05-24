@@ -10,6 +10,7 @@
     <h2 data-th-text="#{action.login}" />
     <div th:if="${param.error}" data-th-text="#{user.invalid}" />
     <div th:if="${param.logout}" data-th-text="#{user.loggedout}" />
+    <div th:if="${registerSuccess}" data-th-text="#{user.registered}" />
     <table class="table">
         <form th:action="@{/login}" method="post">
             <tr>

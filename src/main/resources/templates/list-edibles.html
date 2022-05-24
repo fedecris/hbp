@@ -27,6 +27,7 @@
                 <td>
                     <div th:if="${#httpServletRequest.remoteUser} == null">
                         <a href="/login" class="btn btn-primary" data-th-text="#{button.login}"/>
+                        <a href="/register" class="btn btn-primary" data-th-text="#{button.register}"/>
                     </div>
                     <div th:if="${#httpServletRequest.remoteUser} != null">
                         <div th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+<h2 data-th-text="#{action.register}" />
+<div th:if="${errorMsg}" data-th-text="${errorMsg}" />
+<table class="table">
+    <form th:action="@{/register}" method="post">
+        <tr>
+            <td>
+                <div data-th-text="#{user.name}" />
+                <input type="text" id="username" name="username" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div data-th-text="#{user.pass}" />
+                <input type="password" id="password" name="password" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div data-th-text="#{user.passVerify}" />
+                <input type="password" id="password2" name="password2" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" class="btn btn-primary" data-th-value="#{action.send}">
+                <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>
