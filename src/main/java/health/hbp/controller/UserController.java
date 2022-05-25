@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -24,9 +25,9 @@ public class UserController {
 
     @PostMapping("/register")
     public String doRegister(Model model, @RequestParam HashMap<String, String> formData) {
-        String result = repository.register(formData.get("username"), formData.get("password"), formData.get("password2"));
-        if (result != null) {
-            model.addAttribute("errorMsg", result);
+        Optional<String> registerErr = repository.register(formData.get("username"), formData.get("password"), formData.get("password2"));
+        if (registerErr.isPresent()) {
+            model.addAttribute("errorMsg", registerErr.get());
             return "register";
         }
         model.addAttribute("registerSuccess", 1);

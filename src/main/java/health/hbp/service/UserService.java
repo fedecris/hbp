@@ -9,6 +9,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserService {
 
@@ -22,16 +24,16 @@ public class UserService {
     }
 
     /** Registers a user.
-     * @return null if no errors */
-    public String register(String username, String password, String passwordCheck) {
+     * @return an optional containing an error message related with the registration process or an empty optional otherwise */
+    public Optional<String> register(String username, String password, String passwordCheck) {
         // User already exists?
         if (repository.findByUsername(username) != null) {
-            return messageSource.getMessage("user.exists", null, LocaleContextHolder.getLocale());
+            return Optional.of(messageSource.getMessage("user.exists", null, LocaleContextHolder.getLocale()));
         }
 
         // Pass & check matches?
         if (!password.equals(passwordCheck)) {
-            return messageSource.getMessage("password.mismatch", null, LocaleContextHolder.getLocale());
+            return Optional.of(messageSource.getMessage("password.mismatch", null, LocaleContextHolder.getLocale()));
         }
 
         // Create new user
@@ -39,6 +41,6 @@ public class UserService {
         String hashedPass = argon2.hash(1, 1024, 1, password);
         User user = new User(username, hashedPass);
         repository.save(user);
-        return null;
+        return Optional.empty();
     }
 }
