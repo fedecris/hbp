@@ -7,6 +7,8 @@ import health.hbp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -42,5 +44,14 @@ public class UserService {
         User user = new User(username, hashedPass);
         repository.save(user);
         return Optional.empty();
+    }
+
+    /** @return the logged-in ser */
+    public Optional<User> getLoggedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = repository.findByUsername(authentication.getName());
+        if (user == null)
+            return Optional.empty();
+        return Optional.of(user);
     }
 }

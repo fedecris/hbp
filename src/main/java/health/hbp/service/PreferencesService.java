@@ -9,36 +9,34 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class PreferencesService {
 
     PreferencesRepository repository;
 
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
-    public PreferencesService(PreferencesRepository repository, UserRepository userRepository) {
+    public PreferencesService(PreferencesRepository repository, UserService userService) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public Preferences getPreferencesForLoggedUser(boolean createNew) {
-        if (repository.findByUser(getLoggedUser()) == null && createNew) {
+        Optional<User> user = userService.getLoggedUser();
+        if (!user.isPresent() && createNew) {
             Preferences preferences = new Preferences();
-            preferences.setUser(getLoggedUser());
             preferences.setDailySodiumLimit(1.5);
             repository.save(preferences);
         }
-        return repository.findByUser(getLoggedUser());
+        return repository.findByUser(user.get());
     }
 
     public void savePreferencesForLoggedUser(Preferences preferences) {
-        preferences.setUser(getLoggedUser());
+        preferences.setUser(userService.getLoggedUser().get());
         repository.save(preferences);
     }
 
-    protected User getLoggedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByUsername(authentication.getName());
-    }
 }

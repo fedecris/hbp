@@ -3,6 +3,7 @@ package health.hbp.mapper;
 import health.hbp.dto.EdibleDTO;
 import health.hbp.model.Edible;
 import health.hbp.service.PreferencesService;
+import health.hbp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -15,6 +16,9 @@ public abstract class EdibleMapperDecorator implements EdibleMapper {
     @Autowired
     private PreferencesService preferencesService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public EdibleDTO edibleToEdibleDTO(Edible edible) {
         EdibleDTO edibleDTO = delegate.edibleToEdibleDTO(edible);
@@ -24,6 +28,10 @@ public abstract class EdibleMapperDecorator implements EdibleMapper {
 
     /** Number of portions until reach sodium limit */
     protected String calculatePortionsToSodiumLimit(Edible edible) {
+        // User must be logged-in
+        if (!userService.getLoggedUser().isPresent())
+            return "-";
+        // Calculate portions based on preferences
         Double portionsToSodiumLimit = null;
         Double dailySodiumLimit = 2.0;
         try {
