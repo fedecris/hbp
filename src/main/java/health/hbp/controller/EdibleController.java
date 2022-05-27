@@ -5,6 +5,7 @@ import health.hbp.mapper.EdibleMapper;
 import health.hbp.model.Edible;
 import health.hbp.repository.EdibleRepository;
 import health.hbp.service.EdibleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,16 +19,15 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/edibles")
+@RequiredArgsConstructor
 public class EdibleController {
 
-    @Autowired
-    private EdibleRepository repository;
+    private final EdibleRepository repository;
+
+    private final EdibleService edibleService;
 
     @Inject
     private EdibleMapper mapper;
-
-    @Autowired
-    private EdibleService edibleService;
 
     @GetMapping("")
     public String getAllEdibles(Model model,

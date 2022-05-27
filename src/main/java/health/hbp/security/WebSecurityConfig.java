@@ -1,5 +1,6 @@
 package health.hbp.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,15 +9,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
+@Configuration @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationProvider authProvider;
-
-    @Autowired
-    public WebSecurityConfig(AuthenticationProvider provider) {
-        this.authProvider = provider;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

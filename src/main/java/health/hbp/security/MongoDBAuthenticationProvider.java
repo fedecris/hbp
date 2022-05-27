@@ -4,6 +4,8 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import health.hbp.model.User;
 import health.hbp.repository.UserRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,10 +18,10 @@ import java.util.ArrayList;
 
 @Component
 @Primary
+@RequiredArgsConstructor
 public class MongoDBAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    UserRepository repository;
+    private final UserRepository repository;
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {

@@ -35,7 +35,7 @@ public abstract class EdibleMapperDecorator implements EdibleMapper {
         Double portionsToSodiumLimit = null;
         Double dailySodiumLimit = 2.0;
         try {
-            dailySodiumLimit = preferencesService.getPreferencesForLoggedUser(false).getDailySodiumLimit();
+            dailySodiumLimit = preferencesService.getPreferencesForLoggedUser().getDailySodiumLimit();
             portionsToSodiumLimit = Math.floor(dailySodiumLimit * edible.getFacts().getPortion() / edible.getFacts().getSodium() / edible.getFacts().getPortion() * 10) / 10;
         } catch (Exception e) { /* Some fact or preference not configured */ }
         return portionsToSodiumLimit == null ? "Check config." : (portionsToSodiumLimit.isInfinite() ? "∞" : "< " + portionsToSodiumLimit.intValue());

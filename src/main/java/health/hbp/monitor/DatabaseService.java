@@ -1,23 +1,20 @@
 package health.hbp.monitor;
 
 import com.mongodb.client.MongoClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
 
-@Component
+@Component @RequiredArgsConstructor
 public class DatabaseService implements HealthIndicator {
 
     @Value("${spring.data.mongodb.database}")
     private String DB_NAME;
 
     private final MongoClient client;
-
-    public DatabaseService(MongoClient client) {
-        this.client = client;
-    }
 
     @Override
     public Health health() {
