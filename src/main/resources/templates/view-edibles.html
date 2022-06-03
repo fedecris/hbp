@@ -6,6 +6,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
+<script>
+    async function showDetails() {
+        let upc = document.getElementById('upcvalue').innerText;
+        window.open('/upc/lookup/'+upc);
+    }
+</script>
 <div class="container my-5">
     <h3 th:if="${edible.id}" data-th-text="#{edibles.detail}" />
     <div class="card">
@@ -21,8 +27,8 @@
                             <div class="fs-1" th:text=${edible.brand}></div>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.upc)}" class="form-group col-md-8">
-                            <div data-th-text="#{edibles.upc}" />
-                            <div class="fs-1" th:text=${edible.upc}></div>
+                            <div data-th-text="#{edibles.upc}"/>
+                            <button class="fs-1 btn btn-primary" th:text=${edible.upc} id="upcvalue" th:title="#{button.details}" onclick="showDetails()"/>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.facts.sodium) && !#strings.isEmpty(edible.facts.portion)}" class="form-group col-md-8">
                             <div data-th-text="#{edibles.sodium}" />

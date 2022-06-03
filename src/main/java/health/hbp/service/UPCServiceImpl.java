@@ -3,8 +3,10 @@ package health.hbp.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @Service @Slf4j
@@ -14,14 +16,14 @@ public class UPCServiceImpl implements UPCService {
     private String upcLookupURL;
 
     @Cacheable("upcs")
-    public String upcLookup (String upc) {
+    public String upcLookup (String upc) throws ResponseStatusException {
         log.info(String.format("Looking up %s... " , upc));
         WebClient webClient = WebClient.create();
-        Mono<String> resp = webClient.get()
+        return webClient.get()
                 .uri(upcLookupURL + upc)
                 .retrieve()
-                .bodyToMono(String.class);
-        resp.subscribe();
-        return resp.block();
+                .bodyToMono(String.class)
+                .onErrorMap(err -> new ResponseStatusException(HttpStatus.NOT_FOUND, "UPC info not found"))
+                .block();
     }
 }
