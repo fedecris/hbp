@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Token</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+<script>
+    function copyToClipboard() {
+        let content = document.getElementById("token");
+        content.select();
+        content.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(content.value);
+        alert("OK!");
+    }
+</script>
+<div class="container my-5">
+    <h3 th:if="${tokenInfo}"/>Token</h3>
+    <div class="card">
+        <div class="card-body">
+                <div class="row">
+                    <div data-th-text="#{token.info}"/>
+                    <input readonly type="text" class="fs-8" id="token" th:value="${tokenInfo}" />
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <a class="btn btn-primary" onclick="copyToClipboard()" data-th-text="#{button.copy.cb}" />
+                        <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
