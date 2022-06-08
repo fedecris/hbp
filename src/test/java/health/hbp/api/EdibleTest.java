@@ -1,5 +1,6 @@
 package health.hbp.api;
 
+import health.hbp.security.JWTUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,9 @@ public class EdibleTest {
     @Autowired
     protected TestRestTemplate restTemplate;
 
+    @Autowired
+    protected JWTUtils jwtUtils;
+
     @LocalServerPort
     protected int port;
 
@@ -39,15 +43,25 @@ public class EdibleTest {
         return "http://localhost:" + port + "/" + basePath;
     }
 
+    String token;
+
+    protected HttpHeaders getHeaders() {
+        if (token==null) {
+            token = jwtUtils.buildToken("test");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("content-type", "application/json");
+        headers.set("Authorization", token);
+        return headers;
+    }
+
     @Test
     @BeforeAll
     public void insertNewEdibleShouldReturnOkAndEdibleID() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("content-type", "application/json");
         ResponseEntity<String> response =
                 restTemplate.exchange(String.format("%s/%s", getBaseURL(), ediblesEndPoint),
                         HttpMethod.POST,
-                        new HttpEntity<>(" { \"name\":\"Barra cereal XYZ\", \"brand\":\"FOOBAR\", \"facts\":{ \"portion\":100, \"sodium\":12 }  } ", headers),
+                        new HttpEntity<>(" { \"name\":\"Barra cereal XYZ\", \"brand\":\"FOOBAR\", \"facts\":{ \"portion\":100, \"sodium\":12 }  } ", getHeaders()),
                         String.class);
         assertThat(response.getStatusCode().toString()).contains("200");
         assertThat(response.getBody().toString()).isNotEmpty();
@@ -76,12 +90,10 @@ public class EdibleTest {
 
     @Test
     public void editEdibleShouldReturnOKAndID() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("content-type", "application/json");
         ResponseEntity<String> response =
                 restTemplate.exchange(String.format("%s/%s/%s", getBaseURL(), ediblesEndPoint, existentEdibleID),
                         HttpMethod.PUT,
-                        new HttpEntity<>(" { \"name\":\"Barra Cereal QWERTY\" } ", headers),
+                        new HttpEntity<>(" { \"name\":\"Barra Cereal QWERTY\" } ", getHeaders()),
                         String.class);
         assertThat(response.getStatusCode().toString()).contains("200");
         assertThat(existentEdibleID).isEqualTo(response.getBody().toString());
@@ -93,7 +105,7 @@ public class EdibleTest {
         ResponseEntity<String> response =
                 restTemplate.exchange(String.format("%s/%s/%s", getBaseURL(), ediblesEndPoint, existentEdibleID),
                         HttpMethod.DELETE,
-                        new HttpEntity<>(new HttpHeaders()),
+                        new HttpEntity<>(getHeaders()),
                         String.class);
         assertThat(response.getStatusCode().toString()).contains("200");
     }

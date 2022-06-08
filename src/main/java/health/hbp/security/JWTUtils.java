@@ -25,14 +25,19 @@ public class JWTUtils {
 
     private final UserService userService;
 
-    /** Generacion de un nuevo token, con expiracion expDays */
+    /** Generacion de un nuevo token para el user logueado */
     public String buildToken() {
+        return buildToken(userService.getLoggedUser().get().getUsername());
+    }
+
+    /** Generacion de un nuevo token para el username indicado */
+    public String buildToken(String userName) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
         String token = Jwts
                 .builder()
                 .setId("JWTBuilder")
-                .setSubject(userService.getLoggedUser().get().getUsername())
+                .setSubject(userName)
                 .claim("authorities",
                         grantedAuthorities.stream()
                                 .map(GrantedAuthority::getAuthority)
