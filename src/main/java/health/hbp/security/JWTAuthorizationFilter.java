@@ -35,13 +35,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            if (tokenExists(request, response)) {
-                Claims claims = validateToken(request);
-                if (claims.get("authorities") != null) {
-                    setUpSpringAuthentication(claims);
-                } else {
-                    SecurityContextHolder.clearContext();
-                }
+            // Valid token?
+            if (tokenExists(request, response) && validateToken(request).get("authorities") != null)   {
+                setUpSpringAuthentication(validateToken(request));
+                return;
             } else {
                 SecurityContextHolder.clearContext();
             }

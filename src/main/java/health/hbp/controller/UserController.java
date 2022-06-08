@@ -3,7 +3,6 @@ package health.hbp.controller;
 import health.hbp.security.JWTUtils;
 import health.hbp.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
