@@ -52,6 +52,8 @@ public class UserController {
 
     @GetMapping("/oa2info")
     public String oa2info(Model model, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
+        String dummy = ""+System.currentTimeMillis();
+        service.register(oAuth2User.getName(), dummy, dummy);
         model.addAttribute("userName", oAuth2User.getName() );
         model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName() );
         model.addAttribute("userAttribute", oAuth2User.getAttributes() );
