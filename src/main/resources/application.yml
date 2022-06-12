@@ -1,0 +1,11 @@
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 866201802615-g8blh2900mlkl9opf1m4kqfvclkrqmth.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/google

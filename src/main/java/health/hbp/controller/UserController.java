@@ -3,6 +3,10 @@ package health.hbp.controller;
 import health.hbp.security.JWTUtils;
 import health.hbp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +43,24 @@ public class UserController {
     public String keygen(Model model) {
         model.addAttribute("tokenInfo", jwtUtils.buildToken());
         return "get-token";
+    }
+
+    @GetMapping("/login/oauth2")
+    public String oauth2login() {
+        return "oauth-login";
+    }
+
+    @GetMapping("/oa2info")
+    public String oa2info(Model model, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
+        model.addAttribute("userName", oAuth2User.getName() );
+        model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName() );
+        model.addAttribute("userAttribute", oAuth2User.getAttributes() );
+        return "oauth";
+    }
+
+    @GetMapping("/login/oauth2/code/google")
+    public String oauth2() {
+        return "redirect:/edibles";
     }
 
 
