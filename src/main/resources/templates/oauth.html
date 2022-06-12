@@ -3,32 +3,12 @@
 <head>
     <title>Spring Security - OAuth 2.0 Login</title>
     <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
-<div style="float: right" th:fragment="logout" sec:authorize="isAuthenticated()">
-    <div style="float:left">
-        <span style="font-weight:bold">User: </span><span sec:authentication="name"></span>
-    </div>
-    <div style="float:none">&nbsp;</div>
-    <div style="float:right">
-        <form action="#" th:action="@{/logout}" method="post">
-            <input type="submit" value="Logout" />
-        </form>
-    </div>
-</div>
-<h1>Success!!</h1>
+<h1 data-th-text="#{user.login.success}" />
 <div>
-    You are successfully logged in <span style="font-weight:bold" th:text="${userName}"></span>
-    with <span style="font-weight:bold" th:text="${clientName}"> service!</span>
-</div>
-<div>&nbsp;</div>
-<div>
-    <span style="font-weight:bold">User Attributes:</span>
-    <ul>
-        <li th:each="userAttribute : ${userAttributes}">
-            <span style="font-weight:bold" th:text="${userAttribute.key}"></span>: <span th:text="${userAttribute.value}"></span>
-        </li>
-    </ul>
+    <span data-th-text="#{auth.service}" />: <span style="font-weight:bold" th:text="${clientName}" />
 </div>
 <a href="/edibles" class="btn btn-primary" data-th-text="#{button.back}" />
 </body>
