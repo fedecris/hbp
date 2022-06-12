@@ -1,0 +1,14 @@
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/google
+        provider:
+          google:
+            user-name-attribute: email

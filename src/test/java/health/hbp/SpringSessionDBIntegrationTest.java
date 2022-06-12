@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Base64;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SpringSessionMongoDBIntegrationTest {
+public class SpringSessionDBIntegrationTest {
 
     @LocalServerPort
     private int port;

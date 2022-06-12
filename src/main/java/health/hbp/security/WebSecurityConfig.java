@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/token").authenticated()
                 .anyRequest().permitAll().and()
                 .formLogin().loginPage("/login").permitAll().and()
+                .oauth2Login().loginPage("/login/oauth2").and()
                 .logout().permitAll();
     }
 
