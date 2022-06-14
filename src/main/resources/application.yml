@@ -6,8 +6,8 @@ spring:
       client:
         registration:
           google:
-            client-id:
-            client-secret:
+            client-id: ${env.google.client.id}
+            client-secret: ${env.google.client.secret}
             redirect-uri: http://127.0.0.1:8080/login/oauth2/code/google
         provider:
           google:
