@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Edibles</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -88,8 +88,8 @@
         </table>
     </div>
     <p><a th:if="1 != ${findMode}" href="/edibles/edit" class="btn btn-primary" data-th-text="#{button.add}" /> <a th:if="1 == ${findMode}" href="/edibles" class="btn btn-primary" data-th-text="#{button.back}"/></p>
-    <p><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary" data-th-text="#{button.pref}" /></p>
-    <p><a th:if="1 != ${findMode}" href="/token" class="btn btn-primary" data-th-text="#{button.token}" /></p>
+    <p sec:authorize="isAuthenticated()"><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary" data-th-text="#{button.pref}" /></p>
+    <p sec:authorize="isAuthenticated()"><a th:if="1 != ${findMode}" href="/token" class="btn btn-primary" data-th-text="#{button.token}" /></p>
 </div>
 </body>
 </html>
