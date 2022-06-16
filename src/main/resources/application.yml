@@ -9,6 +9,12 @@ spring:
             client-id: ${env.google.client.id}
             client-secret: ${env.google.client.secret}
             redirect-uri: http://127.0.0.1:8080/login/oauth2/code/google
+          github:
+            client-id: ${env.github.client.id}
+            client-secret: ${env.github.client.secret}
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/github
         provider:
           google:
             user-name-attribute: email
+          github:
+            user-name-attribute: login

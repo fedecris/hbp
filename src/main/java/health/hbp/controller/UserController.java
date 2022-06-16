@@ -50,20 +50,29 @@ public class UserController {
         return "oauth-login";
     }
 
-    @GetMapping("/oa2info")
-    public String oa2info(Model model, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
-        String dummy = ""+System.currentTimeMillis();
-        service.register(oAuth2User.getName(), dummy, dummy);
-        model.addAttribute("userName", oAuth2User.getName() );
-        model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName() );
-        model.addAttribute("userAttribute", oAuth2User.getAttributes() );
-        return "oauth";
-    }
-
     @GetMapping("/login/oauth2/code/google")
     public String oauth2() {
         return "redirect:/edibles";
     }
 
+    @GetMapping("/oauth2google")
+    public String oauth2google(Model model, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
+        regOA2Info(model, authorizedClient, oAuth2User);
+        return "oauth";
+    }
+
+    @GetMapping("/oauth2github")
+    public String oauth2github(Model model, @RegisteredOAuth2AuthorizedClient("github") OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
+        regOA2Info(model, authorizedClient, oAuth2User);
+        return "oauth";
+    }
+
+    protected void regOA2Info(Model model, OAuth2AuthorizedClient authorizedClient, @AuthenticationPrincipal OAuth2User oAuth2User) {
+        String dummy = ""+System.currentTimeMillis();
+        service.register(oAuth2User.getName(), dummy, dummy);
+        model.addAttribute("userName", oAuth2User.getName() );
+        model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName() );
+        model.addAttribute("userAttribute", oAuth2User.getAttributes() );
+    }
 
 }
