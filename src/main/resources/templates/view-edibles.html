@@ -8,8 +8,10 @@
 <body>
 <script>
     async function showDetails() {
+        document.getElementById('details').innerText = '[[#{button.fetching}]]'
         let upc = document.getElementById('upcvalue').innerText;
         window.open('/upc/lookup/'+upc, "_blank", "toolbar=no, location=no, directories=no,status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=yes, width=600, height=600");
+        document.getElementById('details').innerText = '[[#{button.details}]]'
     }
 </script>
 <div class="container my-5">
@@ -28,7 +30,10 @@
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.upc)}" class="form-group col-md-8">
                             <div data-th-text="#{edibles.upc}"/>
-                            <button class="fs-1 btn btn-primary" th:text=${edible.upc} id="upcvalue" th:title="#{button.details}" onclick="showDetails()"/>
+                            <span class="fs-1" th:text=${edible.upc} id="upcvalue" />
+                            <span>
+                                <button class="btn btn-primary" th:text=#{button.details} id="details" th:title="#{button.details}" onclick="showDetails()"/>
+                            </span>
                         </div>
                         <div th:if="${!#strings.isEmpty(edible.facts.sodium) && !#strings.isEmpty(edible.facts.portion)}" class="form-group col-md-8">
                             <div data-th-text="#{edibles.sodium}" />
