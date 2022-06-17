@@ -71,6 +71,11 @@
                 </th>
                 <th valign="top">
                     <div data-th-text="#{edibles.actions}" />
+                    <a th:if="${prevPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${prevPage})}" data-th-text="#{button.previous}" />
+                    <span th:if="${prevPage} == null" data-th-text="#{button.previous}" class="btn disabled" />
+                    <span th:if="${totalPages} != null"><span data-th-text="${currPage}" /> / <span data-th-text="${totalPages}" /></span>
+                    <a th:if="${nextPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${nextPage})}" data-th-text="#{button.next}" />
+                    <span th:if="${nextPage} == null" data-th-text="#{button.next}" class="btn disabled" />
                 </th>
             </tr>
             </thead>
@@ -87,6 +92,7 @@
             </tbody>
         </table>
     </div>
+
     <p><a th:if="1 != ${findMode}" href="/edibles/edit" class="btn btn-primary" data-th-text="#{button.add}" /> <a th:if="1 == ${findMode}" href="/edibles" class="btn btn-primary" data-th-text="#{button.back}"/></p>
     <p sec:authorize="isAuthenticated()"><a th:if="1 != ${findMode}" href="/preferences" class="btn btn-primary" data-th-text="#{button.pref}" /></p>
     <p sec:authorize="isAuthenticated()"><a th:if="1 != ${findMode}" href="/token" class="btn btn-primary" data-th-text="#{button.token}" /></p>

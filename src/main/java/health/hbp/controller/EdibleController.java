@@ -6,6 +6,9 @@ import health.hbp.model.Edible;
 import health.hbp.repository.EdibleRepository;
 import health.hbp.service.EdibleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/edibles")
@@ -31,8 +35,20 @@ public class EdibleController {
     @GetMapping("")
     public String getAllEdibles(Model model,
                                 @RequestParam(value = "sort", defaultValue = "name", required=false) String sort,
-                                @RequestParam(value = "dir",  defaultValue = "asc",  required=false) String dir ) {
-        List<Edible> edibles = repository.findAll(Sort.by("asc".equals(dir)?Sort.Direction.ASC:Sort.Direction.DESC, sort));
+                                @RequestParam(value = "dir",  defaultValue = "asc",  required=false) String dir,
+                                @RequestParam(value = "page",  defaultValue = "0",  required=false) Integer page,
+                                @RequestParam(value = "limit",  defaultValue = "10",  required=false) Integer limit) {
+        Pageable pageReq = PageRequest.of(page, limit, Sort.by("asc".equals(dir)?Sort.Direction.ASC:Sort.Direction.DESC, sort));
+        Page<Edible> ediblePage = repository.findAll(pageReq);
+        List<Edible> edibles = ediblePage.get().collect(Collectors.toList());
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+        if (ediblePage.hasPrevious())
+            model.addAttribute("prevPage", page-1);
+        if (ediblePage.hasNext())
+        model.addAttribute("nextPage", page + 1);
+        model.addAttribute("currPage", ediblePage.getNumber()+1);
+        model.addAttribute("totalPages", ediblePage.getTotalPages());
         model.addAttribute("edibles", edibleToDTO(edibles));
         return "list-edibles";
     }
