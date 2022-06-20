@@ -71,11 +71,20 @@
                 </th>
                 <th valign="top">
                     <div data-th-text="#{edibles.actions}" />
+
+                    <a th:if="${firstPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${firstPage})}" data-th-text="#{button.first}" />
+                    <span th:if="${firstPage} == null" data-th-text="#{button.first}" class="btn disabled" />
+
                     <a th:if="${prevPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${prevPage})}" data-th-text="#{button.previous}" />
                     <span th:if="${prevPage} == null" data-th-text="#{button.previous}" class="btn disabled" />
+
                     <span th:if="${totalPages} != null"><span data-th-text="${currPage}" /> / <span data-th-text="${totalPages}" /></span>
+
                     <a th:if="${nextPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${nextPage})}" data-th-text="#{button.next}" />
                     <span th:if="${nextPage} == null" data-th-text="#{button.next}" class="btn disabled" />
+
+                    <a th:if="${lastPage} != null" class="btn" th:href="@{/edibles?sort={s}&dir={d}&page={p}(s=${sort},d=${dir},p=${lastPage})}" data-th-text="#{button.last}" />
+                    <span th:if="${lastPage} == null" data-th-text="#{button.last}" class="btn disabled" />
                 </th>
             </tr>
             </thead>

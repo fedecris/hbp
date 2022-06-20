@@ -48,6 +48,8 @@ public class EdibleController {
         if (ediblePage.hasNext())
         model.addAttribute("nextPage", page + 1);
         model.addAttribute("currPage", ediblePage.getNumber()+1);
+        model.addAttribute("firstPage", 0);
+        model.addAttribute("lastPage", ediblePage.getTotalPages()-1);
         model.addAttribute("totalPages", ediblePage.getTotalPages());
         model.addAttribute("edibles", edibleToDTO(edibles));
         return "list-edibles";
