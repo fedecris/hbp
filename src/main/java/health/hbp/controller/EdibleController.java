@@ -92,7 +92,7 @@ public class EdibleController {
     @GetMapping("/find/name/{criteria}")
     public String findEdiblesByName(Model model,
                                    @PathVariable(value = "criteria", required = true) String criteria) {
-        List<Edible> edibles = repository.findByNameLike(criteria, Sort.by(Sort.Direction.ASC, "name"));
+        List<Edible> edibles = repository.findByNameLikeIgnoreCase(criteria, Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("edibles", edibleToDTO(edibles));
         model.addAttribute("findMode", 1);
         return "list-edibles";
@@ -101,7 +101,7 @@ public class EdibleController {
     @GetMapping("/find/brand/{criteria}")
     public String findEdiblesByBrand(Model model,
                                     @PathVariable(value = "criteria", required = true) String criteria) {
-        List<Edible> edibles = repository.findByBrandLike(criteria, Sort.by(Sort.Direction.ASC, "brand"));
+        List<Edible> edibles = repository.findByBrandLikeIgnoreCase(criteria, Sort.by(Sort.Direction.ASC, "brand"));
         model.addAttribute("edibles", edibleToDTO(edibles));
         model.addAttribute("findMode", 1);
         return "list-edibles";

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface EdibleRepository extends MongoRepository<Edible, String> {
 
-    List<Edible> findByNameLike(String criteria, Sort sort);
+    List<Edible> findByNameLikeIgnoreCase(String criteria, Sort sort);
 
-    List<Edible> findByBrandLike(String criteria, Sort sort);
+    List<Edible> findByBrandLikeIgnoreCase(String criteria, Sort sort);
 
     List<Edible> findByUpcLike(String criteria);
 
