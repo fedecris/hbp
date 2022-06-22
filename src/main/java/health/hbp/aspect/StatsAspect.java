@@ -26,4 +26,20 @@ public class StatsAspect {
             return null;
         }
     }
+
+    @Around("execution(public String health.hbp.controller.EdibleController.findEdiblesBy*(..))")
+    public Object execTimeFind(ProceedingJoinPoint joinPoint) {
+        try {
+            log.info("{} started!", joinPoint.getSignature().getName());
+            long now = System.currentTimeMillis();
+            String res = (String)joinPoint.proceed();
+            long elapsed = (System.currentTimeMillis() - now);
+            log.info("{} finished in {} ms", joinPoint.getSignature().getName(), elapsed);
+            return res;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
