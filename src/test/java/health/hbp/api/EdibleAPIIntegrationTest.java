@@ -14,13 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpMethod;
 
-import java.util.Objects;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class EdibleTest {
+public class EdibleAPIIntegrationTest {
 
     protected final String basePath = "hbp/api/v1.0";
 
@@ -40,7 +38,7 @@ public class EdibleTest {
     protected int port;
 
     protected String getBaseURL() {
-        return "http://localhost:" + port + "/" + basePath;
+        return "http://127.0.0.1:" + port + "/" + basePath;
     }
 
     String token;
