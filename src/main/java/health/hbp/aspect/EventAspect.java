@@ -8,8 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.Date;
 
 @Aspect
 @Component
@@ -26,7 +25,7 @@ public class EventAspect {
             e.printStackTrace();
             return null;
         } finally {
-            kafkaTemplate.send("eventos", new Event(LocalDateTime.now(), "Register", (String)joinPoint.getArgs()[0]));
+            kafkaTemplate.send("eventos", new Event(new Date(), "Register", (String)joinPoint.getArgs()[0]));
         }
     }
 }
